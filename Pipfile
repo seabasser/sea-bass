@@ -5,8 +5,10 @@ name = "pypi"
 
 [packages]
 flask = "*"
+requests = "*"
+python-firebase = {git = "https://github.com/ozgur/python-firebase"}
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.8"

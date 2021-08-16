@@ -1,7 +1,7 @@
 import json
 
 from flask import Flask
-from db.fb import Firebase
+from app.db.fb import Firebase
 
 app = Flask(__name__)
 firebase = Firebase()

@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask
+from flask import Flask, Response
 from app.db.fb import Firebase
 
 app = Flask(__name__)
@@ -20,7 +20,7 @@ def root():
 @app.route("/booze", methods=["GET"])
 def booze():
     result = firebase.fb.get('/', None)
-    return json.dumps(result)
+    return Response(response=json.dumps(result), mimetype='application/json')
 
 
 if __name__ == "__main__":

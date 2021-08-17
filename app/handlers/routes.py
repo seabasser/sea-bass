@@ -135,6 +135,8 @@ def configure_routes(app):
                 ]
             }
         """
-        drink_name = request.args.get("name")
-        result = barreleye.get_recipe_by_name(drink_name)
-        return Response(response=json.dumps(result), mimetype="application/json")
+        drink_name = request.args.get('name')
+        if drink_name:
+            result = barreleye.get_recipe_by_name(drink_name)
+            return Response(response=json.dumps(result), mimetype='application/json')
+        return Response(response="Please supply a drink name with ?name=", status=400)

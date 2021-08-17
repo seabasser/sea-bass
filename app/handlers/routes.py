@@ -37,7 +37,7 @@ def configure_routes(app):
             return Response(response=json.dumps(sorted_result), **RESPONSE_META)
         else:
             print("firebase query failed")
-            return Response(status=500,**RESPONSE_META)
+            return Response(status=500, **RESPONSE_META)
 
     @app.route("/drinks", methods=["GET"])
     def drinks():

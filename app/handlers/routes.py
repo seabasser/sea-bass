@@ -60,8 +60,11 @@ def configure_routes(app):
             }
         """
         spirit = request.args.get("spirit")
-        result = barreleye.get_drinks_by_booze(spirit)
-        return Response(response=json.dumps(result), mimetype="application/json")
+        if spirit:
+            result = barreleye.get_drinks_by_booze(spirit)
+            return Response(response=json.dumps(result), mimetype="application/json")
+        return Response(response="Please supply a base spirit with ?spirit=", status=400)
+
 
     @app.route("/spec", methods=["GET"])
     def spec():

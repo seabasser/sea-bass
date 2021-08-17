@@ -47,6 +47,7 @@ def test_booze():
     }
     assert response.headers["Access-Control-Allow-Origin"] == "*"
 
+
 def test_drinks():
     app = Flask(__name__)
     configure_routes(app)
@@ -64,12 +65,15 @@ def test_drinks():
         "idDrink"
     }
 
+
 def test_spec():
     app = Flask(__name__)
     configure_routes(app)
     client = app.test_client()
     url = "/spec?name=Damned if you do"
 
+    response = client.get(url)
+    data = json.loads(response.data)
     assert response.status_code == 200
     assert data.count != 0
     assert len(data.drinks) > 0

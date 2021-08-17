@@ -8,10 +8,12 @@ from flask import Response, request
 
 firebase = Firebase()
 
-
-def create_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return response
+RESPONSE_META = {
+    "mimetype": "application/json",
+    "headers": {
+        "Access-Control-Allow-Origin": "*"
+    }
+}
 
 
 def configure_routes(app):
@@ -30,15 +32,12 @@ def configure_routes(app):
         sorted_result = sort.filter_and_sort(result, drink_type)
 
         if result and drink_type:
-            response = Response(response=json.dumps(sorted_result), status=200, mimetype="application/json")
+            return Response(response=json.dumps(sorted_result), **RESPONSE_META)
         elif result:
-            response = Response(response=json.dumps(sorted_result), mimetype="application/json")
+            return Response(response=json.dumps(sorted_result), **RESPONSE_META)
         else:
             print("firebase query failed")
-            response = Response(status=500)
-
-        response = create_headers(response)
-        return response
+            return Response(status=500,**RESPONSE_META)
 
     @app.route("/drinks", methods=["GET"])
     def drinks():
@@ -64,7 +63,7 @@ def configure_routes(app):
                         "idDrink": "13194"
                     },
                     {
-                        "strDrink": "Hot Toddy",
+                        "strDrink": "Hot Toddy",`
                         "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/ggx0lv1613942306.jpg",
                         "idDrink": "178345"
                     },
@@ -78,8 +77,7 @@ def configure_routes(app):
         """
         spirit = request.args.get("spirit")
         result = barreleye.get_drinks_by_booze(spirit)
-        response = Response(response=json.dumps(result), mimetype="application/json")
-        response = create_headers(response)
+        response = Response(response=json.dumps(result), **RESPONSE_META)
         return response
 
     @app.route("/spec", methods=["GET"])
@@ -157,9 +155,10 @@ def configure_routes(app):
         drink_name = request.args.get('name')
         if drink_name:
             result = barreleye.get_recipe_by_name(drink_name)
-            response = Response(response=json.dumps(result), mimetype='application/json')
-            response = create_headers(response)
+            response = Response(response=json.dumps(result), **RESPONSE_META)
             return response
-        response = Response(response="Please supply a drink name with ?name=", status=400)
-        response = create_headers(response)
+        response = Response(response="Please supply a drink name with ?name=",
+                            status=400,
+                            headers={"Access-Control-Allow-Origin": "*"}
+                            )
         return response

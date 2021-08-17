@@ -63,7 +63,7 @@ def drinks():
     """
     spirit = request.args.get('spirit')
     result = barreleye.get_drinks_by_booze(spirit)
-    return Response(response=result, mimetype='application/json')
+    return Response(response=json.dumps(result), mimetype='application/json')
 
 
 @app.route("/spec", methods=["GET"])
@@ -140,7 +140,7 @@ def spec():
     """
     drink_name = request.args.get('name')
     result = barreleye.get_recipe_by_name(drink_name)
-    return Response(response=result, mimetype='application/json')
+    return Response(response=json.dumps(result), mimetype='application/json')
 
 
 if __name__ == "__main__":

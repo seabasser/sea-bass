@@ -3,6 +3,7 @@ import json
 
 from flask import Response
 
+
 def filter_and_sort(result, drink_type):
     response = []
 

@@ -77,7 +77,6 @@ def configure_routes(app):
                             )
         return response
 
-
     @app.route("/spec", methods=["GET"])
     def spec():
         """Get drink spec from cocktailDB drink name.

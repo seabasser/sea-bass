@@ -8,7 +8,7 @@ from flask import Response, request
 
 firebase = Firebase()
 
-RESPONSE_META= {
+RESPONSE_META = {
     "mimetype": "application/json",
     "headers": {
         "Access-Control-Allow-Origin": "*"
@@ -55,7 +55,7 @@ def configure_routes(app):
                         "idDrink": "13194"
                     },
                     {
-                        "strDrink": "Hot Toddy",
+                        "strDrink": "Hot Toddy",`
                         "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/ggx0lv1613942306.jpg",
                         "idDrink": "178345"
                     },

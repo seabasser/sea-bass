@@ -8,6 +8,13 @@ from flask import Response, request
 
 firebase = Firebase()
 
+RESPONSE_META = {
+    "mimetype": "application/json",
+    "headers": {
+        "Access-Control-Allow-Origin": "*"
+    }
+}
+
 
 def configure_routes(app):
     @app.route("/ping", methods=["GET"])
@@ -21,7 +28,8 @@ def configure_routes(app):
     @app.route("/booze", methods=["GET"])
     def booze():
         result = firebase.fb.get("/", None)
-        return Response(response=json.dumps(result), mimetype="application/json")
+        response = Response(response=json.dumps(result), **RESPONSE_META)
+        return response
 
     @app.route("/drinks", methods=["GET"])
     def drinks():
@@ -47,7 +55,7 @@ def configure_routes(app):
                         "idDrink": "13194"
                     },
                     {
-                        "strDrink": "Hot Toddy",
+                        "strDrink": "Hot Toddy",`
                         "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/ggx0lv1613942306.jpg",
                         "idDrink": "178345"
                     },
@@ -62,10 +70,13 @@ def configure_routes(app):
         spirit = request.args.get("spirit")
         if spirit:
             result = barreleye.get_drinks_by_booze(spirit)
-            return Response(response=json.dumps(result), mimetype="application/json")
-        return Response(
-            response="Please supply a base spirit with ?spirit=", status=400
-        )
+            return Response(response=json.dumps(result), **RESPONSE_META)
+        response = Response(response="Please supply a base spirit with ?spirit=",
+                            status=400,
+                            headers={"Access-Control-Allow-Origin": "*"}
+                            )
+        return response
+
 
     @app.route("/spec", methods=["GET"])
     def spec():
@@ -142,5 +153,10 @@ def configure_routes(app):
         drink_name = request.args.get("name")
         if drink_name:
             result = barreleye.get_recipe_by_name(drink_name)
-            return Response(response=json.dumps(result), mimetype="application/json")
-        return Response(response="Please supply a drink name with ?name=", status=400)
+            response = Response(response=json.dumps(result), **RESPONSE_META)
+            return response
+        response = Response(response="Please supply a drink name with ?name=",
+                            status=400,
+                            headers={"Access-Control-Allow-Origin": "*"}
+                            )
+        return response

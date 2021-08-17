@@ -1,12 +1,7 @@
-import json
-
-from flask import Flask, Response
+from flask import Flask
 from app.handlers.routes import configure_routes
-from app.db.fb import Firebase
 
 app = Flask(__name__)
-firebase = Firebase()
-
 
 configure_routes(app)
 

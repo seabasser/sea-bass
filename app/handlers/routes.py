@@ -6,26 +6,24 @@ import barreleye
 from flask import Response
 
 
-
 firebase = Firebase()
 
-def configure_routes(app):
 
+def configure_routes(app):
     @app.route("/ping", methods=["GET"])
     def ping():
         return "PONG"
-
 
     @app.route("/", methods=["GET"])
     def root():
         return "lubdub"
 
-
     @app.route("/booze", methods=["GET"])
     def booze():
-        result = firebase.fb.get('/', None)
-        return Response(response=json.dumps(result), mimetype='application/json')
-    
+        result = firebase.fb.get("/", None)
+        return Response(response=json.dumps(result), mimetype="application/json")
+
+
 @app.route("/drinks", methods=["GET"])
 def drinks():
     """Get drinks based on provided spirit.
@@ -62,9 +60,9 @@ def drinks():
             ]
         }
     """
-    spirit = request.args.get('spirit')
+    spirit = request.args.get("spirit")
     result = barreleye.get_drinks_by_booze(spirit)
-    return Response(response=json.dumps(result), mimetype='application/json')
+    return Response(response=json.dumps(result), mimetype="application/json")
 
 
 @app.route("/spec", methods=["GET"])
@@ -139,6 +137,6 @@ def spec():
             ]
         }
     """
-    drink_name = request.args.get('name')
+    drink_name = request.args.get("name")
     result = barreleye.get_recipe_by_name(drink_name)
-    return Response(response=json.dumps(result), mimetype='application/json')
+    return Response(response=json.dumps(result), mimetype="application/json")

@@ -45,3 +45,4 @@ def test_booze():
         "Proof",
         "Bottle Size",
     }
+    assert response.headers["Access-Control-Allow-Origin"] == "*"

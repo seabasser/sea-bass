@@ -68,16 +68,16 @@ def drinks():
 
 @app.route("/spec", methods=["GET"])
 def spec():
-    """Get drink spec from cocktailDB drink id.
+    """Get drink spec from cocktailDB drink name.
 
-    @api {get} /spec/   Get a spec based on drink id
+    @api {get} /spec/   Get a spec based on drink name
     @apiName getSpec
     @apiVersion 1.0.0
-    @apiDescription Get drink spec by cocktailDB drink id
+    @apiDescription Get drink spec by cocktailDB drink name
 
-    @apiParam (Query) {String} id cocktailDB drink id to find spec
+    @apiParam (Query) {String} name cocktailDB drink id to find spec
 
-    @apiSuccess {Array} drinks Array of drink details based on id
+    @apiSuccess {Array} drinks Array of drink details based on name
     @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 SUCCESS
         {
@@ -138,8 +138,8 @@ def spec():
             ]
         }
     """
-    drink_id = request.args.get('id')
-    result = barreleye.get_recipe_by_id(drink_id)
+    drink_name = request.args.get('name')
+    result = barreleye.get_recipe_by_name(drink_name)
     return Response(response=result, mimetype='application/json')
 
 

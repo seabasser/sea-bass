@@ -13,10 +13,10 @@ def get_drinks_by_booze(booze):
     drink_list["count"] = len(drink_list.get("drinks"))
     return drink_list
 
-def get_recipe_by_id(id):
+def get_recipe_by_name(drink_name):
     # Gets the recipe for a given drink from TheCocktailDB
 
-    r = requests.get(f'{URL}lookup.php?i={id}')
+    r = requests.get(f'{URL}search.php?s={drink_name}')
     r.raise_for_status()
     recipe = r.json()
     return recipe

@@ -13,6 +13,7 @@ def create_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
+
 def configure_routes(app):
     @app.route("/ping", methods=["GET"])
     def ping():

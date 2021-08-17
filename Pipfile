@@ -10,9 +10,11 @@ python-firebase = {git = "https://github.com/ozgur/python-firebase"}
 gunicorn = "*"
 
 [dev-packages]
+pytest = "*"
+flake8 = "*"
 
 [scripts]
-serve = "python server.py"
+serve = "python app.py"
 
 [requires]
 python_version = "3.8"

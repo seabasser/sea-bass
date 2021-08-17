@@ -11,5 +11,8 @@ gunicorn = "*"
 
 [dev-packages]
 
+[scripts]
+serve = "python server.py"
+
 [requires]
 python_version = "3.8"

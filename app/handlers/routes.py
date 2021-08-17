@@ -9,6 +9,11 @@ from flask import Response, request
 firebase = Firebase()
 
 
+def create_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
+
 def configure_routes(app):
     @app.route("/ping", methods=["GET"])
     def ping():
@@ -21,7 +26,9 @@ def configure_routes(app):
     @app.route("/booze", methods=["GET"])
     def booze():
         result = firebase.fb.get("/", None)
-        return Response(response=json.dumps(result), mimetype="application/json")
+        response = Response(response=json.dumps(result), mimetype="application/json")
+        response = create_headers(response)
+        return response
 
     @app.route("/drinks", methods=["GET"])
     def drinks():
@@ -61,7 +68,9 @@ def configure_routes(app):
         """
         spirit = request.args.get("spirit")
         result = barreleye.get_drinks_by_booze(spirit)
-        return Response(response=json.dumps(result), mimetype="application/json")
+        response = Response(response=json.dumps(result), mimetype="application/json")
+        response = create_headers(response)
+        return response
 
     @app.route("/spec", methods=["GET"])
     def spec():
@@ -138,5 +147,9 @@ def configure_routes(app):
         drink_name = request.args.get('name')
         if drink_name:
             result = barreleye.get_recipe_by_name(drink_name)
-            return Response(response=json.dumps(result), mimetype='application/json')
-        return Response(response="Please supply a drink name with ?name=", status=400)
+            response = Response(response=json.dumps(result), mimetype='application/json')
+            response = create_headers(response)
+            return response
+        response = Response(response="Please supply a drink name with ?name=", status=400)
+        response = create_headers(response)
+        return response

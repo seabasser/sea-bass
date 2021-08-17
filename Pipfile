@@ -14,7 +14,7 @@ pytest = "*"
 flake8 = "*"
 
 [scripts]
-serve = "python app.py"
+serve = "python server.py"
 pytest = "pytest"
 flake8 = "flake8"
 

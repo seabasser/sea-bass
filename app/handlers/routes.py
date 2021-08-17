@@ -1,7 +1,7 @@
 import json
 
 from app.db.fb import Firebase
-import barreleye
+from utils import barreleye, sort
 
 from flask import Response, request
 
@@ -28,8 +28,16 @@ def configure_routes(app):
     @app.route("/booze", methods=["GET"])
     def booze():
         result = firebase.fb.get("/", None)
-        response = Response(response=json.dumps(result), **RESPONSE_META)
-        return response
+        drink_type = request.args.get("type")
+        sorted_result = sort.filter_and_sort(result, drink_type)
+
+        if result and drink_type:
+            return Response(response=json.dumps(sorted_result), **RESPONSE_META)
+        elif result:
+            return Response(response=json.dumps(sorted_result), **RESPONSE_META)
+        else:
+            print("firebase query failed")
+            return Response(status=500, **RESPONSE_META)
 
     @app.route("/drinks", methods=["GET"])
     def drinks():

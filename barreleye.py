@@ -2,7 +2,7 @@
 
 import requests
 
-URL = "www.thecocktaildb.com/api/json/v1/1/"
+URL = "https://thecocktaildb.com/api/json/v1/1/"
 
 def get_drinks_by_booze(booze):
     # Gets a list of drinks from TheCocktailDB based on given type of booze

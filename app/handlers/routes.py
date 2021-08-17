@@ -3,7 +3,7 @@ import json
 from app.db.fb import Firebase
 import barreleye
 
-from flask import Response
+from flask import Response, request
 
 
 firebase = Firebase()
@@ -22,7 +22,6 @@ def configure_routes(app):
     def booze():
         result = firebase.fb.get("/", None)
         return Response(response=json.dumps(result), mimetype="application/json")
-
 
     @app.route("/drinks", methods=["GET"])
     def drinks():
@@ -63,7 +62,6 @@ def configure_routes(app):
         spirit = request.args.get("spirit")
         result = barreleye.get_drinks_by_booze(spirit)
         return Response(response=json.dumps(result), mimetype="application/json")
-
 
     @app.route("/spec", methods=["GET"])
     def spec():

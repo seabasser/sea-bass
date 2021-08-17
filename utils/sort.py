@@ -1,6 +1,4 @@
 # Filter and sort incoming booze by type and cheapest first
-import json
-
 
 def filter_and_sort(result, drink_type):
     response = []

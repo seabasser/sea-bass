@@ -63,8 +63,9 @@ def configure_routes(app):
         if spirit:
             result = barreleye.get_drinks_by_booze(spirit)
             return Response(response=json.dumps(result), mimetype="application/json")
-        return Response(response="Please supply a base spirit with ?spirit=", status=400)
-
+        return Response(
+            response="Please supply a base spirit with ?spirit=", status=400
+        )
 
     @app.route("/spec", methods=["GET"])
     def spec():
@@ -138,8 +139,8 @@ def configure_routes(app):
                 ]
             }
         """
-        drink_name = request.args.get('name')
+        drink_name = request.args.get("name")
         if drink_name:
             result = barreleye.get_recipe_by_name(drink_name)
-            return Response(response=json.dumps(result), mimetype='application/json')
+            return Response(response=json.dumps(result), mimetype="application/json")
         return Response(response="Please supply a drink name with ?name=", status=400)

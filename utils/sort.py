@@ -1,8 +1,6 @@
 # Filter and sort incoming booze by type and cheapest first
 import json
 
-from flask import Response
-
 
 def filter_and_sort(result, drink_type):
     response = []

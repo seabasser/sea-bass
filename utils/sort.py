@@ -12,10 +12,7 @@ def filter_and_sort(result, drink_type):
             if drink["Type"] == drink_type:
                 response.append(drink)
         response.sort(key=lambda x: x["Retail Bottle Price"])  # Sort by Retail Price
-        return Response(response=json.dumps(response), status=200, mimetype="application/json")
-    elif result:
-        result.sort(key=lambda x: x["Retail Bottle Price"])  # Sort by Retail Price
-        return Response(response=json.dumps(result), mimetype="application/json")
-    else:
-        print("firebase query failed")
-        return Response(status=500)
+        return response
+
+    result.sort(key=lambda x: x["Retail Bottle Price"])  # Sort by Retail Price
+    return result

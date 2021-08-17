@@ -22,8 +22,16 @@ def configure_routes(app):
     def booze():
         result = firebase.fb.get("/", None)
         drink_type = request.args.get("type")
-        response = sort.filter_and_sort(result, drink_type)
-        return response
+        sorted_result = sort.filter_and_sort(result, drink_type)
+
+        if result and drink_type:
+            return Response(response=json.dumps(sorted_result), status=200, mimetype="application/json")
+        elif result:
+            result.sort(key=lambda x: x["Retail Bottle Price"])  # Sort by Retail Price
+            return Response(response=json.dumps(sorted_result), mimetype="application/json")
+        else:
+            print("firebase query failed")
+            return Response(status=500)
 
     @app.route("/drinks", methods=["GET"])
     def drinks():

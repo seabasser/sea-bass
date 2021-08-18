@@ -27,6 +27,37 @@ def configure_routes(app):
 
     @app.route("/booze", methods=["GET"])
     def booze():
+        """Get alchohol from DB.
+
+        @api {get} /booze/   Get alchohol from the DB.
+        @apiName getBooze
+        @apiVersion 1.0.0
+        @apiDescription Get alchohol from the DB in ascending order of price.
+
+        @apiParam (Query) {String} type Type of alchohol to retreive from DB
+
+        @apiSuccess {Array} Array of alchohol dicts from fireBLAH
+        @apiSuccessExample {json} Success-Response:
+            HTTP/1.1 200 SUCCESS
+            [
+                {
+                    "Bottle Size": ".75L",
+                    "Brand Name": "El Toro Silver",
+                    "Proof": 80,
+                    "Retail Bottle Price": 8.95,
+                    "Supplier": "Sazerac Co.",
+                    "Type": "Tequila"
+                },
+                {
+                    "Bottle Size": ".75L",
+                    "Brand Name": "Montezuma Teq White",
+                    "Proof": 80,
+                    "Retail Bottle Price": 10.95,
+                    "Supplier": "Sazerac Co.",
+                    "Type": "Tequila"
+                }
+            ]
+        """
         result = firebase.fb.get("/", None)
         drink_type = request.args.get("type")
         sorted_result = sort.filter_and_sort(result, drink_type)

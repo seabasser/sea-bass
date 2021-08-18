@@ -57,9 +57,9 @@ def test_drinks():
     response = client.get(url)
     data = json.loads(response.data)
     assert response.status_code == 200
-    assert data.count != 0
-    assert len(data.drinks) > 0
-    assert data.drinks[0].keys() == {
+    assert data['count'] != 0
+    assert len(data['drinks']) > 0
+    assert data['drinks'][0].keys() == {
         "strDrink",
         "strDrinkThumb",
         "idDrink"
@@ -75,9 +75,8 @@ def test_spec():
     response = client.get(url)
     data = json.loads(response.data)
     assert response.status_code == 200
-    assert data.count != 0
-    assert len(data.drinks) > 0
-    assert data.drinks[0].keys() == {
+    assert len(data['drinks']) > 0
+    assert data['drinks'][0].keys() == {
         "idDrink",
         "strDrink",
         "strDrinkAlternate",

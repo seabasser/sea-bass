@@ -25,6 +25,7 @@ def add_custom_drinks(drink_list, booze):
 
     return drink_list
 
+
 def add_custom_recipe(drink_name):
     '''
     Creates recipe for custom drinks
